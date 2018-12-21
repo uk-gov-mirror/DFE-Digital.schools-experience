@@ -16,7 +16,7 @@ jobs:
       - run: docker run -d --name=smoketest --health-interval=4s --link postgres:postgres -e DATABASE_URL=postgres://postgres:$POSTGRES_PASSWORD@postgres/school_experience -e RAILS_MASTER_KEY school-experience 
       - run: sleep 15 # ugly but gives the web app time to boot
       - run: docker ps | grep smoketest | grep '(healthy)' || false
-
-      
-          
+      - run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
+      - run: docker tag school-experience jebw/school-experience
+      - run: docker push jebw/school-experience
       

@@ -49,7 +49,7 @@ group :development, :test do
 
   gem 'dotenv-rails'
   
-  gem 'brakeman'
+  gem 'brakeman', github: 'presidentbeef/brakeman'
 end
 
 group :development do

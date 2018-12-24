@@ -62,4 +62,8 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.sass.inline_source_maps = true
+  
+  config.action_controller.perform_caching = true
+  config.cache_store = :redis_cache_store, {url: 'redis://127.0.0.1:6379/1'}
+  config.session_store :cache_store, key: 'redis-session-test'
 end

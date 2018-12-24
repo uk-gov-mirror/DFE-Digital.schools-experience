@@ -1,1 +1,7 @@
-<p class="govuk-body">Lorem</p>
+<p class="govuk-body">Welcome <%= session[:username] || '<unknown>' %></p>
+  
+<%= form_with url: '/pages/set_name' do %>
+  <label for="name">Name:</label>
+  <input type="text" name="name" value="" />
+  <input type="submit" value="Set">
+<% end %>

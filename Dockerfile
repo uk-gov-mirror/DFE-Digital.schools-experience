@@ -13,7 +13,7 @@ CMD ["rails", "server" ]
 HEALTHCHECK CMD curl --fail http://localhost:3000/ || exit 1
 
 # Install node, leaving as few artifacts as possible
-RUN apk add --update --no-cache git gcc libxml2 bash build-base libpq postgresql-dev tzdata
+RUN apk add --update --no-cache git gcc libxml2 bash build-base libpq postgresql-dev tzdata nodejs yarn
 
 # Install Gems removing artifacts
 COPY .ruby-version Gemfile Gemfile.lock ./
@@ -23,8 +23,7 @@ RUN bundle install --without development --jobs=1 && \
 
 ## Add code and compile assets
 COPY . .
-RUN apk add --no-cache nodejs yarn && \
-    yarn install && \
+RUN yarn install && \
     yarn cache clean && \
     bundle exec rake assets:precompile SECRET_KEY_BASE=stubbed && \
     rm -rf node_modules

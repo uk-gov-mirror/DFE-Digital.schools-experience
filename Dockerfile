@@ -1,4 +1,4 @@
-FROM ruby:2.5
+FROM ruby:2.5-slim
 
 ENV RAILS_ENV=production \
     RAILS_SERVE_STATIC_FILES=true \
@@ -13,7 +13,14 @@ CMD ["rails", "server" ]
 HEALTHCHECK CMD curl --fail http://localhost:3000/ || exit 1
 
 # Install node, leaving as few artifacts as possible
-RUN apt-get update && apt-get install apt-transport-https && \
+RUN apt-get update && \
+    apt-get install -y -o Dpkg::Options::="--force-confold" --no-install-recommends \
+      apt-transport-https \
+      build-essential \
+      curl \
+      gpg \
+      git \
+      libpq-dev && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     curl -sL https://deb.nodesource.com/setup_8.x | bash - && \

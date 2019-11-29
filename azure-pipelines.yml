@@ -30,7 +30,7 @@ jobs:
 
   - script: docker build -f Dockerfile -t $(DOCKER_HUB_REPO):$(imageTag) .
     displayName: Build Docker Image without Cache
-    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+    # condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
   - script: docker tag $(DOCKER_HUB_REPO):$(imageTag) $(DOCKER_HUB_REPO):$(buildCacheTag)
     displayName: Tag build cache image

@@ -51,6 +51,10 @@ module Schools
       current_user.sub
     end
 
+    def task_count_for_urn(_urn)
+      3
+    end
+
     class InaccessibleSchoolError < StandardError; end
 
   private

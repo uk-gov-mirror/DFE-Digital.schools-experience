@@ -14,6 +14,7 @@ describe Schools::ChangeSchool, type: :model do
       SecureRandom.uuid => 1000000
     }
   end
+  let(:change_school) { described_class.new(user, uuid_map, urn: current_urn) }
 
   before do
     allow(Schools::DFESignInAPI::Roles).to \
@@ -23,7 +24,7 @@ describe Schools::ChangeSchool, type: :model do
       receive(:has_school_experience_role?) { user_has_role }
   end
 
-  subject { described_class.new(user, uuid_map, urn: current_urn) }
+  subject { change_school }
 
   describe 'attributes' do
     it { is_expected.to respond_to :urn }
@@ -80,6 +81,30 @@ describe Schools::ChangeSchool, type: :model do
 
         expect(Schools::DFESignInAPI::Roles).to \
           have_received(:new).with(user_uuid, uuid_map.keys[1])
+      end
+    end
+  end
+
+  describe '#task_count_for_urn' do
+    context 'with unexpected URN' do
+      subject { change_school.task_count_for_urn 987654 }
+      it { is_expected.to be_nil }
+    end
+
+    context 'with known URN' do
+      before do
+        create :placement_request, school: first_school
+        create :placement_request, school: second_school
+
+        create :placement_request, :booked, school: first_school do |pr|
+          pr.booking.update_columns date: Date.yesterday
+        end
+      end
+
+      subject { change_school.task_count_for_urn first_school.urn }
+
+      it "should include count only for requested school" do
+        is_expected.to eql 2
       end
     end
   end

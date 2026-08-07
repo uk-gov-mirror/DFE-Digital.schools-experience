@@ -33,8 +33,10 @@ RUN chmod +x /app/docker-entrypoint.sh
 
 # install NPM packages removign artifacts
 COPY package.json yarn.lock .yarnrc.yml ./
-RUN npm install -g corepack && corepack enable
-RUN yarn install --immutable && yarn cache clean
+RUN npm install -g corepack@0.35.0  \
+    && corepack enable  \
+    && yarn install --immutable  \
+    && yarn cache clean
 
 # Install Gems removing artifacts
 COPY .ruby-version Gemfile Gemfile.lock ./

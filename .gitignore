@@ -54,7 +54,7 @@ vendor/
 .terraform
 terraform.tfstate*
 
-yarn/*
+.yarn/*
 !.yarn/cache
 !.yarn/patches
 !.yarn/plugins

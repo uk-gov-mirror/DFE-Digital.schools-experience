@@ -79,5 +79,8 @@
   "scripts": {
     "spec": "jest"
   },
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "yarn@4.18.0",
+  "engines": {
+    "node": "24.13.0"
+  }
 }

@@ -21,7 +21,7 @@ RUN apk update && apk add -Uu --no-cache zlib-dev busybox ncurses
 
 # hadolint ignore=DL3018
 RUN apk add -U --no-cache bash build-base git tzdata libxml2 libxml2-dev \
-    libffi-dev yaml-dev gcompat gcc postgresql-libs postgresql-dev nodejs yarn \
+    libffi-dev yaml-dev gcompat gcc postgresql-libs postgresql-dev nodejs npm yarn \
     chromium chromium-chromedriver
 
 # Upgrade libpng to 1.6.55-0 to address synk vuln https://security.snyk.io/vuln/SNYK-ALPINE321-LIBPNG-15338682
@@ -32,8 +32,9 @@ COPY script/docker-entrypoint.sh .
 RUN chmod +x /app/docker-entrypoint.sh
 
 # install NPM packages removign artifacts
-COPY package.json yarn.lock ./
-RUN yarn install && yarn cache clean
+COPY package.json yarn.lock .yarnrc.yml ./
+RUN npm install -g corepack && corepack enable
+RUN yarn install --immutable && yarn cache clean
 
 # Install Gems removing artifacts
 COPY .ruby-version Gemfile Gemfile.lock ./

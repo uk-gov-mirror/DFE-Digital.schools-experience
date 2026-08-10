@@ -29,8 +29,8 @@ We also have markdown pages within the `doc` folder of this git repo
 - Redis
   - `brew install redis`
   - `brew services start redis`
-- NodeJS 18.x
-- Yarn
+- NodeJS 24.13.0
+- Yarn 4.x
 - Chrome (for javascript tests in Cucumber)
 
 ## Setting up the app in development
@@ -42,7 +42,7 @@ We also have markdown pages within the `doc` folder of this git repo
 5. bundler -v
 6. yarn -v
 7. Run `bundle install` to install ruby dependencies
-8. Run `npx yarn` to install node dependencies
+8. Run `yarn install` to install node dependencies
 9. Run `bin/rails db:setup` to set up the database development and test schemas, and seed with test data.
 10. If you don't wish to use the first available Redis Database, set the `REDIS_URL`, eg in the `.env` file
 11. Create SSL certificates - `bundle exec rake dev:ssl:generate`

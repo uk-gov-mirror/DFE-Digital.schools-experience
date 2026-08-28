@@ -46,32 +46,34 @@ Rails.application.config.content_security_policy do |policy|
 
   policy.script_src :self,
                     "https://googletagmanager.com",
-                    "https://www.googletagmanager.com",
-                    "https://tagmanager.google.com",
                     "https://*.googletagmanager.com",
+                    "https://tagmanager.google.com",
                     "https://www.googleadservices.com",
                     "https://www.google.com",
                     "https://pagead2.googlesyndication.com",
                     "https://googleads.g.doubleclick.net",
                     "https://*.google-analytics.com",
                     "https://maps.googleapis.com",
+                    "https://www.google-analytics.com",
                     "googleapis.com",
                     "https://code.jquery.com/jquery-3.2.1.slim.min.js", # needed for Flipper UI
                     "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js", # needed for Flipper UI
                     "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" # needed for Flipper UI
 
   policy.style_src :self,
+                   "https://www.google.com",
+                   "https://www.googletagmanager.com",
                    "https://googletagmanager.com",
                    "https://tagmanager.google.com",
                    "https://fonts.googleapis.com",
                    "'unsafe-inline'", # needed for Flipper UI
                    "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" # needed for Flipper UI
 
-  policy.img_src :self,
-                 "www.googletagmanager.com",
+  policy.img_src :self, :data,
+                 "https://www.googletagmanager.com",
                  "https://googletagmanager.com",
-                 "https://ssl.gstatic.com",
-                 "https://www.gstatic.com",
+                 "https://*.gstatic.com",
+                 "https://maps.googleapis.com",
                  "https://*.google-analytics.com",
                  "https://*.googletagmanager.com",
                  "https://*.g.doubleclick.net",
@@ -85,8 +87,6 @@ Rails.application.config.content_security_policy do |policy|
                  "https://www.google.co.uk"
 
   policy.connect_src :self,
-                     "www.googletagmanager.com",
-                     "www.google.com",
                      "https://*.google-analytics.com",
                      "https://*.analytics.google.com",
                      "https://*.googletagmanager.com",
@@ -95,7 +95,6 @@ Rails.application.config.content_security_policy do |policy|
                      "https://*.google.co.uk",
                      "https://pagead2.googlesyndication.com",
                      "https://www.googleadservices.com",
-                     "https://googleads.g.doubleclick.net",
                      "https://ad.doubleclick.net",
                      "https://www.google.com",
                      "https://google.com",

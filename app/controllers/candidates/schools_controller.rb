@@ -1,5 +1,4 @@
 class Candidates::SchoolsController < ApplicationController
-  include MapsContentSecurityPolicy
   EXPANDED_SEARCH_RADIUS = 50
 
   before_action :redirect_if_deactivated
